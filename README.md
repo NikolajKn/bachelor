@@ -14,16 +14,29 @@ Implementovať webovú aplikáciu na strane klienta s prípadnou potrebnou serve
 
 
 ### Plán práce
+
 **31.10.2019** Webová stránka bakalárskej práce
+
 **1.11.2019** Štúdium React-u
+
 **26.11.2019** Zbieranie zdrojov
+
 **1.12.2019** Prvá cvičobná aplikácia
+
 **15.12.2019** Vytvorenie servera na ukladanie dát
+
 **1.1.2020** Komunikácia aplikácie s GitHub-om
+
 **15.1.2020** Napísých úvodných 10 strán bakalárskej práce a prototyp aplikácie
+
 **1.2.2020** Integrované riešiče úloh do aplikácie
+
 **15.2.2020** Testovanie aplikácie študentmi
+
 **1.4.2020** Finálna verzia aplikácie po zapracovaní feedbacku
+
 **25.5.2020** Dokončenie bakalárskej práce
+
 **31.5.2020** Odovzdanie hotovej bakalárskej práce
+
 
