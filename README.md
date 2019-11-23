@@ -40,3 +40,46 @@ Implementovať webovú aplikáciu na strane klienta s prípadnou potrebnou serve
 **31.5.2020** Odovzdanie hotovej bakalárskej práce
 
 
+### Zdroje
+
+**Staršie bakalárske práce**
+
+Nyitraiová, A.: 
+Educational tools for first order logic. 
+Bakalárska práca – Univerzita Komenského, Bratislava, 2018.
+
+Onódy, Z.:
+A proof assistant for first-order logic. 
+Bakalárska práca – Univerzita Komenského, Bratislava, 2018.
+
+Cifra, M.:
+Prieskumník sémantiky logiky prvého rádu.
+Bakalárska práca – Univerzita Komenského, Bratislava, 2018.
+
+**Dokumentácie a tutoriály**
+React
+https://reactjs.org/
+https://www.thenetninja.co.uk/
+
+Bootstrap
+https://getbootstrap.com/
+
+Node.js
+https://nodejs.org/en/
+
+Express.js
+https://expressjs.com/
+
+Git
+git-scm.com/book/en/v2
+
+Firebase
+https://firebase.google.com/
+
+Jupyter
+https://jupyter.org/
+
+
+
+
+
