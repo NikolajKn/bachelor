@@ -58,26 +58,26 @@ Bakalárska práca – Univerzita Komenského, Bratislava, 2018.
 
 #### Technológie, dokumentácie a tutoriály
 
-React  
+**React**  
 https://reactjs.org/  
 https://www.thenetninja.co.uk/
 
-Bootstrap  
+**Bootstrap**
 https://getbootstrap.com/  
 
-Node.js  
+**Node.js**
 https://nodejs.org/en/  
 
-Express.js  
+**Express.js**
 https://expressjs.com/  
 
-Git  
+**Git** 
 https://git-scm.com/
 
-Firebase  
+**Firebase**  
 https://firebase.google.com/
 
-Jupyter  
+**Jupyter**  
 https://jupyter.org/
 
 
