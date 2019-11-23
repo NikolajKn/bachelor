@@ -42,42 +42,42 @@ Implementovať webovú aplikáciu na strane klienta s prípadnou potrebnou serve
 
 ### Zdroje
 
-**Staršie bakalárske práce**
+#### Staršie bakalárske práce
 
-Nyitraiová, A.\
-Educational tools for first order logic\
-Bakalárska práca – Univerzita Komenského, Bratislava, 2018.\
+Nyitraiová, A.  
+Educational tools for first order logic  
+Bakalárska práca – Univerzita Komenského, Bratislava, 2018.
 
-Onódy, Z.:\
-A proof assistant for first-order logic\
-Bakalárska práca – Univerzita Komenského, Bratislava, 2018.\
+Onódy, Z.:  
+A proof assistant for first-order logic  
+Bakalárska práca – Univerzita Komenského, Bratislava, 2018.
 
-Cifra, M.:\
-Prieskumník sémantiky logiky prvého rádu.\
-Bakalárska práca – Univerzita Komenského, Bratislava, 2018.\
+Cifra, M.:  
+Prieskumník sémantiky logiky prvého rádu.  
+Bakalárska práca – Univerzita Komenského, Bratislava, 2018.
 
 #### Technológie, dokumentácie a tutoriály
 
-React\
-https://reactjs.org/
+React  
+https://reactjs.org/  
 https://www.thenetninja.co.uk/
 
-Bootstrap\
-https://getbootstrap.com/
+Bootstrap  
+https://getbootstrap.com/  
 
-Node.js\
-https://nodejs.org/en/
+Node.js  
+https://nodejs.org/en/  
 
-Express.js\
-https://expressjs.com/
+Express.js  
+https://expressjs.com/  
 
-Git\
+Git  
 https://git-scm.com/
 
-Firebase\
+Firebase  
 https://firebase.google.com/
 
-Jupyter\
+Jupyter  
 https://jupyter.org/
 
 
