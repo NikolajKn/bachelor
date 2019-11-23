@@ -44,19 +44,19 @@ Implementovať webovú aplikáciu na strane klienta s prípadnou potrebnou serve
 
 **Staršie bakalárske práce**
 
-Nyitraiová, A.: \
-Educational tools for first order logic. \
+Nyitraiová, A.\
+Educational tools for first order logic\
 Bakalárska práca – Univerzita Komenského, Bratislava, 2018.\
 
 Onódy, Z.:\
-A proof assistant for first-order logic. \
+A proof assistant for first-order logic\
 Bakalárska práca – Univerzita Komenského, Bratislava, 2018.\
 
 Cifra, M.:\
 Prieskumník sémantiky logiky prvého rádu.\
 Bakalárska práca – Univerzita Komenského, Bratislava, 2018.\
 
-#### Technológie, dokumentácie a tutoriály\
+#### Technológie, dokumentácie a tutoriály
 
 React\
 https://reactjs.org/
