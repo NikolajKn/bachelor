@@ -59,7 +59,7 @@ Bakalárska práca – Univerzita Komenského, Bratislava, 2018.
 #### Technológie, dokumentácie a tutoriály
 
 **React**  
-[https://reactjs.org/]  
+[](https://reactjs.org/)  
 https://www.thenetninja.co.uk/
 
 **React-Redux**  
