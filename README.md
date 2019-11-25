@@ -63,25 +63,25 @@ Bakalárska práca – Univerzita Komenského, Bratislava, 2018.
 [https://www.thenetninja.co.uk/](https://www.thenetninja.co.uk/)
 
 **React-Redux**  
-https://react-redux.js.org
+[https://react-redux.js.org](https://react-redux.js.org)
 
 **Bootstrap**  
-https://getbootstrap.com/  
+[https://getbootstrap.com/](https://getbootstrap.com/)
 
 **Node.js**  
-https://nodejs.org/en/  
+[https://nodejs.org/en/](https://nodejs.org/en/)  
 
 **Express.js**  
-https://expressjs.com/  
+[https://expressjs.com/](https://expressjs.com/)
 
 **Git**   
-https://git-scm.com/
+[https://git-scm.com/](https://git-scm.com/)
 
 **Firebase**    
-https://firebase.google.com/
+[https://firebase.google.com/](https://firebase.google.com/)
 
 **Jupyter**  
-https://jupyter.org/
+[https://jupyter.org/](https://jupyter.org/)
 
 
 
