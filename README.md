@@ -83,6 +83,7 @@ Bakalárska práca – Univerzita Komenského, Bratislava, 2018.
 **Jupyter**  
 [https://jupyter.org/](https://jupyter.org/)
 
+[Prezentácia](Zdroje.pptx)
 
 
 
