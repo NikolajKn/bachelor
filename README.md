@@ -62,8 +62,8 @@ Bakalárska práca – Univerzita Komenského, Bratislava, 2018.
 [https://reactjs.org/](https://reactjs.org/)  
 [https://www.thenetninja.co.uk/](https://www.thenetninja.co.uk/)
 
-**React-Redux**  
-[https://react-redux.js.org](https://react-redux.js.org)
+**Redux**  
+[https://redux.js.org/](https://redux.js.org/)
 
 **Bootstrap**  
 [https://getbootstrap.com/](https://getbootstrap.com/)
