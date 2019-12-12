@@ -12,21 +12,13 @@ const initState = {
 const todoReducer = (state = initState, action) => {
     switch(action.type){
         case "CREATE_TODO" : 
-        console.log(state)
-
-            console.log("todo created", action.todo)
-            console.log(state)
-
+       
             return state;
         case "UPDATE_TODO" : 
-            console.log(state)
-            console.log("todo updated", action.todo)
-            console.log(state)
+           
             return state;    
         case "DELETE_TODO" : 
-            console.log(state)
-            console.log("todo deleted", action.todo)
-            console.log(state)
+           
 
             return state;    
         case "CREATE_TODO_ERROR":

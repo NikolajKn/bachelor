@@ -5,20 +5,19 @@ import {compose} from "redux";
 import ReactMarkdown from "react-markdown"
 import Editor from "./ToDoEditor";
 import {Card,Form,Button, ButtonGroup} from "react-bootstrap";
-import {updateTodo,createTodo,deleteTodo} from "../../store/actions/todoActions"
+import {updateTodo,createTodo,deleteTodo, updateOrder} from "../../store/actions/todoActions"
 import ToDoCreate from "./ToDoCreate"
 import {useDrag, useDrop } from "react-dnd"
 import { ItemTypes } from '../../constants/ItemTypes';
 
 
-const ToDo = ({todo,createTodo,updateTodo,deleteTodo, index, moveCard}) => {
-
+const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, index,moveCard}) => {
 
     const ref = useRef(null)
     const [stateTodo, setStateTodo] = useState(todo) 
-
+    
+    
     const [, drop] = useDrop({
-         
         accept: ItemTypes.TODO,
         hover(item, monitor){
             console.log("Pustene")
@@ -47,74 +46,78 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, index, moveCard}) => {
             moveCard(dragIndex, hoverIndex)
             item.index = hoverIndex
         },
-    })
+    },console.log("MOVEEEEEEE"))
   
 
     const [{isDragging}, drag] = useDrag({
         item : {type : ItemTypes.TODO},
         collect: monitor => ({
-            isDragging: !!monitor.isDragging(),
+            isDragging: !!monitor.isDragging()
         }),
     })
    
     drag(drop(ref))
     
     const handleChange = (e) => {
-
        /* const tempState = stateTodo
         tempState["content"] = e.target.value
         console.log("TEMP STATE:",tempState)*/
         setStateTodo({...stateTodo,
             content: e.target.value})
-        console.log("CHANGED STATE:",stateTodo)
-      
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
         updateTodo(stateTodo)
         /*
-        this.props.updateTodo(this.state)*/
+        this.props.updateTodo(this.state)
+        */
     }
 
     const handleCreate = (e) => {
         e.preventDefault()
-        createTodo()
+        createTodo(cardOrder)
     }
     
     const handleDelete = (e) => {
+        
         e.preventDefault()
         deleteTodo(stateTodo)
+
+        var array = [...cardOrder]; // make a separate copy of the array
+        var index = array.indexOf(stateTodo.id)
+
+        if (index !== -1) {
+            array.splice(index, 1);
+            updateOrder(array)
+        }
     }
     
    
-        return(
+    return(
 
-            <Card bg="dark" text="white" ref={drag}>
-                <Card.Header>
-                    {stateTodo.title}
-                    <ButtonGroup aria-label="Controls">
-                        <Button  variant="outline-light" onClick={handleCreate}>+</Button>
-                        <Button  variant="outline-light" onClick={handleDelete}>X</Button>
-                    </ButtonGroup>
-                    
-                    
-                </Card.Header>
-                <Card.Body>
-                    <Card.Text>
-                        <Form onSubmit={handleSubmit}>
-                            <Form.Group controlId="exampleForm.ControlTextarea1">
-                                <Form.Label> Zadanie </Form.Label>
-                                <Form.Control as = "textarea" value ={stateTodo.content} onChange={handleChange} rows="3"/>
-                            </Form.Group>
-                            <Button variant="primary" type="submit">Save</Button>
-                        </Form>
-                    </Card.Text>
-                    
-                </Card.Body>
-            </Card>
-        )}
+        <Card bg="dark" text="white" ref={ref}>
+            <Card.Header>
+                {stateTodo.title}
+                <ButtonGroup aria-label="Controls">
+                    <Button  variant="outline-light" onClick={handleCreate}>+</Button>
+                    <Button  variant="outline-light" onClick={handleDelete}>X</Button>
+                </ButtonGroup>
+                
+                
+            </Card.Header>
+            <Card.Body>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group controlId="exampleForm.ControlTextarea1">
+                            <Form.Label> Zadanie </Form.Label>
+                            <Form.Control as = "textarea" value ={stateTodo.content} onChange={handleChange} rows="3"/>
+                        </Form.Group>
+                        <Button variant="primary" type="submit">Save</Button>
+                    </Form>
+                
+            </Card.Body>
+        </Card>
+    )}
    
    
 
@@ -123,8 +126,10 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, index, moveCard}) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         updateTodo: (todo) => dispatch(updateTodo(todo)),
-        createTodo: () => dispatch(createTodo({title:"", content:""})),
-        deleteTodo: (todo) => dispatch(deleteTodo(todo))
+        createTodo: (cardOrder) => dispatch(createTodo(cardOrder)),
+        deleteTodo: (todo) => dispatch(deleteTodo(todo)),
+        updateOrder: (cardOrder) => dispatch(updateOrder(cardOrder)) 
+
     }
 }
 /*

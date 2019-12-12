@@ -17,35 +17,50 @@ class Dashboard extends Component{
         
         
         const {todos} = this.props;
-       
-        console.log("DASHBOARD TODOS",this.props)
-        return(
-            <Container>
-               <Row>
-                <Col />
-                <Col sm = {10}>  
-                    <DndProvider backend={HTML5Backend}>
-                        <TodoList todos = {todos} positions = {"5"} /> 
-                    </DndProvider>
-                </Col>
-                <Col />
-               </Row>
-                    
-            </Container>
-            
-        )
+        const {cardOrder} = this.props;
+
+
+        
+        if(!todos || !cardOrder){
+            return(
+                <Container>
+                    <Row>
+                        <Col > Loading...</Col>
+                    </Row>
+                </Container>
+            )
+        }else{
+            console.log("DASHBOARD TODOS",this.props)
+            return(
+                <Container>
+                <Row>
+                    <Col />
+                    <Col sm = {10}>  
+                        <DndProvider backend={HTML5Backend}>
+                        
+                            <TodoList todos = {todos} cardOrder={cardOrder} positions = {"5"} /> 
+                        </DndProvider>
+                    </Col>
+                    <Col />
+                </Row>
+                        
+                </Container>
+                
+            )
+            }
     }
 }
 
 
 const mapStateToProps = (state) => {
     return {
-        todos:state.firestore.ordered.todos
+        todos:state.firestore.ordered.todos,
+        cardOrder:state.firestore.ordered.cardOrder
     }
 }
 
 
 
 
-export default compose(firestoreConnect([{collection:'todos'}]),connect(mapStateToProps))(Dashboard)
+export default compose(firestoreConnect([{collection:'todos'},{collection:'cardOrder'}]),connect(mapStateToProps))(Dashboard)
 

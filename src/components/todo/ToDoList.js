@@ -4,26 +4,48 @@ import {Link} from "react-router-dom";
 import {ListGroup} from "react-bootstrap";
 import Editor from "./ToDoEditor";
 import ToDo from "./ToDo"
-import {updateTodo,createTodo,deleteTodo} from "../../store/actions/todoActions"
+import {updateTodo,createTodo,deleteTodo,updateOrder} from "../../store/actions/todoActions"
 
 import update from 'immutability-helper';
 
 
 
 
-const ToDoList = ({todos,positions}) => {
-    
-    console.log(todos)
-
-    const [cards, setCards] = useState([])
+const ToDoList = ({todos,cardOrder}) => {
    
-    
+    const [cards, setCards] = useState([])
+
+    const [order, setOrder] = useState(cardOrder[0].order)
+    console.log(order)
     console.log(cards)
+    console.log(order.length)
+    console.log(cards.length)
+
+
+    
+    const temp = []
+    if(order.length > cards.length){
+        order.map(item => {
+            todos.map(card => {
+                if (card.id == item){
+                    temp.push(card)
+                    /*
+                    setCards({...cards,
+                        card})
+                        */
+                }
+            })
+        })
+        setCards(temp)
+    }
+    console.log(temp)  
+    console.log(cards)
+
 
     const moveCard = useCallback(
         (dragIndex, hoverIndex) => {
-          const dragCard = todos[dragIndex]
-          
+          const dragCard = cards[dragIndex]
+          console.log("AAAAAAAAAA")
           updateTodo(
             update(todos, {
               $splice: [
@@ -33,16 +55,16 @@ const ToDoList = ({todos,positions}) => {
             }),
           )
         },
-        [todos],
+        [cards],
       )
   
     const renderTodo = (todo, index) => {
         return(
             <ListGroup.Item key={todo.id}>
-               
                 <ToDo 
                     todo = {todo}
                     index = {index}
+                    cardOrder = {order}
                     moveCard = {moveCard}/>
            </ListGroup.Item>
             
@@ -53,7 +75,7 @@ const ToDoList = ({todos,positions}) => {
         
         <ListGroup >
   
-            {todos && todos.map( (todo,i) => {
+            {cards && cards.map( (todo,i) => {
                 return( 
                     renderTodo(todo,i)
                 )
