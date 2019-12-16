@@ -9,8 +9,7 @@ export const createTodo = (cardOrder) => {
             content: ""
         }).then(
             function(docRef){
-                cardOrder.push(docRef.id)
-                dispatch(updateOrder(cardOrder))
+                dispatch(updateOrder([...cardOrder,docRef.id]))
             }
         )
         .then(() => {
@@ -70,7 +69,6 @@ export const deleteTodo = (todo) => {
             })
         })
     }
-    
 }
 
 
@@ -79,7 +77,7 @@ export const updateOrder = (cardOrder) => {
     return  (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore();
         const col = firestore.collection("cardOrder").doc("order")
-        
+        //ARRAYUNION on add
         col.update({
             order:cardOrder            
         }).then(() => {

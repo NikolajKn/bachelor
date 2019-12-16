@@ -15,13 +15,14 @@ class Dashboard extends Component{
     
     render(){
         
-        
+        console.log(this.props.todos)
         const {todos} = this.props;
         const {cardOrder} = this.props;
-
+        
 
         
         if(!todos || !cardOrder){
+            
             return(
                 <Container>
                     <Row>
@@ -30,6 +31,8 @@ class Dashboard extends Component{
                 </Container>
             )
         }else{
+            
+            console.log(todos["ZwgfyqB1ZxOjTBg6Jcsg"])
             console.log("DASHBOARD TODOS",this.props)
             return(
                 <Container>
@@ -54,7 +57,7 @@ class Dashboard extends Component{
 
 const mapStateToProps = (state) => {
     return {
-        todos:state.firestore.ordered.todos,
+        todos:state.firestore.data.todos,
         cardOrder:state.firestore.ordered.cardOrder
     }
 }

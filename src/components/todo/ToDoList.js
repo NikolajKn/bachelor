@@ -21,24 +21,11 @@ const ToDoList = ({todos,cardOrder}) => {
     console.log(order.length)
     console.log(cards.length)
 
-
     
-    const temp = []
     if(order.length > cards.length){
-        order.map(item => {
-            todos.map(card => {
-                if (card.id == item){
-                    temp.push(card)
-                    /*
-                    setCards({...cards,
-                        card})
-                        */
-                }
-            })
-        })
-        setCards(temp)
+        setCards(order.map(item => ({...todos[item], id: item}) ));
     }
-    console.log(temp)  
+    
     console.log(cards)
 
 
@@ -66,8 +53,7 @@ const ToDoList = ({todos,cardOrder}) => {
                     index = {index}
                     cardOrder = {order}
                     moveCard = {moveCard}/>
-           </ListGroup.Item>
-            
+           </ListGroup.Item>  
         )
     }
    
