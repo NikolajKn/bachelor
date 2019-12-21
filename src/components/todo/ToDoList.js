@@ -16,25 +16,37 @@ const ToDoList = ({todos,cardOrder}) => {
     const [cards, setCards] = useState([])
 
     const [order, setOrder] = useState(cardOrder[0].order)
+    /*
+    console.log(todos)
     console.log(order)
     console.log(cards)
+    console.log(cardOrder)
+    console.log(cardOrder[0].order.length)
+    console.log(Object.keys(todos).length)
     console.log(order.length)
     console.log(cards.length)
-
-    
-    if(order.length > cards.length){
+*/
+    if(cardOrder[0].order !== order){
+        setOrder(cardOrder[0].order)
         setCards(order.map(item => ({...todos[item], id: item}) ));
     }
+    if(cardOrder[0].order.length !== order.length){
+        setOrder(cardOrder[0].order)
+        setCards(order.map(item => ({...todos[item], id: item}) ));
+    }
+    if(order.length != cards.length){
+        setCards(order.map(item => ({...todos[item], id: item}) ));
+    }
+    
     
     console.log(cards)
 
 
     const moveCard = useCallback(
         (dragIndex, hoverIndex) => {
-          const dragCard = cards[dragIndex]
-          console.log("AAAAAAAAAA")
-          updateTodo(
-            update(todos, {
+          const dragCard = order[dragIndex]
+          updateOrder(
+            update(order, {
               $splice: [
                 [dragIndex, 1],
                 [hoverIndex, 0, dragCard]
@@ -42,7 +54,8 @@ const ToDoList = ({todos,cardOrder}) => {
             }),
           )
         },
-        [cards],
+        [order],
+        console.log("ORDER: ",order)
       )
   
     const renderTodo = (todo, index) => {

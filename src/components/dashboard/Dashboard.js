@@ -22,7 +22,6 @@ class Dashboard extends Component{
 
         
         if(!todos || !cardOrder){
-            
             return(
                 <Container>
                     <Row>
@@ -32,7 +31,6 @@ class Dashboard extends Component{
             )
         }else{
             
-            console.log(todos["ZwgfyqB1ZxOjTBg6Jcsg"])
             console.log("DASHBOARD TODOS",this.props)
             return(
                 <Container>
@@ -40,8 +38,7 @@ class Dashboard extends Component{
                     <Col />
                     <Col sm = {10}>  
                         <DndProvider backend={HTML5Backend}>
-                        
-                            <TodoList todos = {todos} cardOrder={cardOrder} positions = {"5"} /> 
+                            <TodoList todos = {todos} cardOrder={cardOrder} /> 
                         </DndProvider>
                     </Col>
                     <Col />

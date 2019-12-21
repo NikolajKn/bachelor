@@ -1,4 +1,4 @@
-import React, { useState,useRef, Component } from 'react'
+import React, { useState, useRef, Component } from 'react'
 import {connect} from "react-redux";
 import {firestoreConnect} from "react-redux-firebase";
 import {compose} from "redux";
@@ -20,12 +20,16 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
     const [, drop] = useDrop({
         accept: ItemTypes.TODO,
         hover(item, monitor){
-            console.log("Pustene")
+         
             if (!ref.current){
                 return
             }
             const dragIndex = item.index
             const hoverIndex = index
+            /*
+            console.log("Drag: ",dragIndex)
+            console.log("Hover: ",hoverIndex)
+            */
             if(dragIndex === hoverIndex){
                 return
             }
@@ -42,11 +46,11 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
             if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
                 return
               }
-            console.log("MOVEEEEEEE", dragIndex)
+            
             moveCard(dragIndex, hoverIndex)
             item.index = hoverIndex
         },
-    },console.log("MOVEEEEEEE"))
+    })
   
 
     const [{isDragging}, drag] = useDrag({
@@ -103,8 +107,6 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
                     <Button  variant="outline-light" onClick={handleCreate}>+</Button>
                     <Button  variant="outline-light" onClick={handleDelete}>X</Button>
                 </ButtonGroup>
-                
-                
             </Card.Header>
             <Card.Body>
                     <Form onSubmit={handleSubmit}>
