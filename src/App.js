@@ -6,6 +6,8 @@ import ToDo from './components/todo/ToDo';
 import SignIn from './components/auth/SignIn.js';
 import SignUp from './components/auth/SignUp.js';
 import ToDoCreate from './components/todo/ToDoCreate.js';
+import NoticeBoard from './components/notice/NoticeBoard.js';
+import Home from './components/home/Home.js';
 
 
 
@@ -17,11 +19,9 @@ class App extends Component {
         <div className="App">
           <Navbar/>
           <Switch>
-            <Route exact path ="/" component = {Dashboard} />
-            <Route path = "/todo/:id" component={ToDo}/>
-            <Route path = "/signin" component={SignIn}/>
-            <Route path = "/signup" component={SignUp}/>
-            <Route path = "/todocreate" component={ToDoCreate}/>
+            <Route exact path ="/" component = {Home} />
+            <Route path = "/tasks" component={Dashboard}/>
+            <Route path = "/notice" component={NoticeBoard}/>
           </Switch>
         </div>
       </BrowserRouter>

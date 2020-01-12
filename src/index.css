@@ -16,6 +16,32 @@ body {
   */
 }
 
+
+.toolbar{
+  display: flex;
+  justify-content: right;
+}
+
+.secondnav{
+  margin: 13px;
+}
+
+.list-group-item.active {
+  background-color: grey;
+  border-color: grey; 
+}
+
+.card:focus {
+  background-color: red;
+
+}
+
+.mainText{
+  margin-top: 60px;
+
+}
+
+
 form{
   padding: 20px;
   margin-top: 60px;

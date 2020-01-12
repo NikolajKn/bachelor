@@ -1,51 +1,57 @@
 import React , { useState, useCallback } from "react";
-import ToDoSummary from "./ToDoSummary";
+
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 import {ListGroup} from "react-bootstrap";
-import Editor from "./ToDoEditor";
 import ToDo from "./ToDo"
-import {updateTodo,createTodo,deleteTodo,updateOrder} from "../../store/actions/todoActions"
+import {updateOrder,newOrder} from "../../store/actions/todoActions"
 
 import update from 'immutability-helper';
 
 
 
 
-const ToDoList = ({todos,cardOrder}) => {
+const ToDoList = ({todos,cardOrder,updateOrder,taskName}) => {
    
     const [cards, setCards] = useState([])
 
-    const [order, setOrder] = useState(cardOrder[0].order)
-    /*
-    console.log(todos)
-    console.log(order)
-    console.log(cards)
-    console.log(cardOrder)
-    console.log(cardOrder[0].order.length)
-    console.log(Object.keys(todos).length)
-    console.log(order.length)
-    console.log(cards.length)
-*/
-    if(cardOrder[0].order !== order){
-        setOrder(cardOrder[0].order)
-        setCards(order.map(item => ({...todos[item], id: item}) ));
-    }
-    if(cardOrder[0].order.length !== order.length){
-        setOrder(cardOrder[0].order)
-        setCards(order.map(item => ({...todos[item], id: item}) ));
-    }
-    if(order.length != cards.length){
-        setCards(order.map(item => ({...todos[item], id: item}) ));
-    }
-    
-    
-    console.log(cards)
+    const [order, setOrder] = useState(cardOrder.order)
 
+    console.log("STATE ORDER ",order)
+    console.log("SEND ORDER ",cardOrder.order)
+    if(cardOrder.order !== order){
+        console.log("BBBBBBBBBBBBBBBBBBBBBBBBB")
+        console.log("ORDER1: ",order)
+        console.log("ORDER2: ",cardOrder)
+        
+        //updateOrder(order)
+        setOrder(cardOrder.order) 
+        setCards(Object.values(order).map(item => ({...todos[item], id: item}) ));
+    
+        console.log("ORDER1: ",order)
+    }
+  
+
+    if(cardOrder.order.length !== order.length){
+        console.log("2. IF: ",order)
+        setOrder(cardOrder.order) 
+        setCards(Object.values(order).map(item => ({...todos[item], id: item}) ));
+        console.log("2. IF:: ",order)
+    
+    
+    }
+  
+    if(order.length !== cards.length){
+        console.log("3. IF:: ",order)
+        setCards(Object.values(order).map(item => ({...todos[item], id: item}) ));
+        console.log("3. IF:: ",order)
+    }
 
     const moveCard = useCallback(
         (dragIndex, hoverIndex) => {
           const dragCard = order[dragIndex]
-          updateOrder(
+          console.log("BEFORE MOVE ",order)
+          setOrder(
             update(order, {
               $splice: [
                 [dragIndex, 1],
@@ -58,25 +64,29 @@ const ToDoList = ({todos,cardOrder}) => {
         console.log("ORDER: ",order)
       )
   
-    const renderTodo = (todo, index) => {
+
+
+    const renderTodo = (item, index) => {
         return(
-            <ListGroup.Item key={todo.id}>
+            <ListGroup.Item className = "card" key={item.id}>
                 <ToDo 
-                    todo = {todo}
+                    todo = {item}
                     index = {index}
                     cardOrder = {order}
-                    moveCard = {moveCard}/>
+                    moveCard = {moveCard}
+                    setOrder = {setOrder}
+                    taskName = {taskName}
+                    />
            </ListGroup.Item>  
         )
     }
    
     return(
         
-        <ListGroup >
-  
-            {cards && cards.map( (todo,i) => {
+        <ListGroup variant="flush">
+            {cards && cards.map( (item,i) => {
                 return( 
-                    renderTodo(todo,i)
+                    renderTodo(item,i)
                 )
             })}
 
@@ -108,4 +118,60 @@ const ToDoList = ({todos,cardOrder}) => {
     )
 }
 
-export default ToDoList;
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateOrder: (cardOrder, taskName) => dispatch(updateOrder(cardOrder,taskName)) 
+    }
+}
+
+
+export default connect(null,mapDispatchToProps)(ToDoList)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+/*
+    if(JSON.stringify((cardOrder[0].order) !== JSON.stringify(order)) && order.length > 1){
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAaa")
+        console.log("ORDER1: ",order)
+        console.log("ORDER2: ",cardOrder[0].order)
+        newOrder(order)
+    }
+
+
+
+    if((cardOrder[0].order !== order) && order.length > 1){
+        console.log("BBBBBBBBBBBBBBBBBBBBBBBBB")
+        console.log("ORDER1: ",order)
+        console.log("ORDER2: ",cardOrder[0].order)
+        updateOrder(order)
+
+    }
+   */
+    /*
+    if(JSON.stringify(cardOrder[0].order) !== JSON.stringify(order) ){
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAaa")
+        console.log("ORDER1: ",order)
+        console.log("ORDER2: ",cardOrder[0].order)
+        //setOrder(cardOrder[0].order)
+        updateOrder(order)
+        console.log("ORDER3: ",order)
+        console.log("ORDER4: ",cardOrder[0].order)
+        setCards(order.map(item => ({...todos[item], id: item}) ));
+        
+    }
+    
+
+*/

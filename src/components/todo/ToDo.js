@@ -1,21 +1,19 @@
-import React, { useState, useRef, Component } from 'react'
+import React, { useState, useRef } from 'react'
 import {connect} from "react-redux";
-import {firestoreConnect} from "react-redux-firebase";
-import {compose} from "redux";
+
 import ReactMarkdown from "react-markdown"
-import Editor from "./ToDoEditor";
 import {Card,Form,Button, ButtonGroup} from "react-bootstrap";
 import {updateTodo,createTodo,deleteTodo, updateOrder} from "../../store/actions/todoActions"
-import ToDoCreate from "./ToDoCreate"
 import {useDrag, useDrop } from "react-dnd"
 import { ItemTypes } from '../../constants/ItemTypes';
 
 
-const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, index,moveCard}) => {
+const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, index,moveCard, taskName}) => {
 
     const ref = useRef(null)
     const [stateTodo, setStateTodo] = useState(todo) 
-    
+    const [edit, setEdit] = useState({edit:false})
+
     
     const [, drop] = useDrop({
         accept: ItemTypes.TODO,
@@ -48,19 +46,29 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
               }
             
             moveCard(dragIndex, hoverIndex)
+            console.log(item.index)
+        
             item.index = hoverIndex
         },
     })
   
 
     const [{isDragging}, drag] = useDrag({
-        item : {type : ItemTypes.TODO},
+        item : {type : ItemTypes.TODO,todo,index},
         collect: monitor => ({
             isDragging: !!monitor.isDragging()
         }),
     })
    
     drag(drop(ref))
+
+
+    const handleEdit = () => {
+         setEdit({edit:true})
+    }
+
+
+
     
     const handleChange = (e) => {
        /* const tempState = stateTodo
@@ -70,6 +78,14 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
             content: e.target.value})
     }
 
+    const handleEditChange = (e) => {
+        /* const tempState = stateTodo
+         tempState["content"] = e.target.value
+         console.log("TEMP STATE:",tempState)*/
+         setStateTodo({...stateTodo,
+             assignment: e.target.value})
+     }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         updateTodo(stateTodo)
@@ -78,9 +94,18 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
         */
     }
 
+    const handleEditSubmit = (e) => {
+        e.preventDefault();
+        updateTodo(stateTodo)
+        setEdit({edit:false})
+        /*
+        this.props.updateTodo(this.state)
+        */
+    }
+
     const handleCreate = (e) => {
         e.preventDefault()
-        createTodo(cardOrder)
+        createTodo(cardOrder,taskName)
     }
     
     const handleDelete = (e) => {
@@ -93,32 +118,50 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
 
         if (index !== -1) {
             array.splice(index, 1);
-            updateOrder(array)
+            updateOrder(array,taskName)
         }
     }
     
-   
-    return(
+  
 
-        <Card bg="dark" text="white" ref={ref}>
-            <Card.Header>
-                {stateTodo.title}
-                <ButtonGroup aria-label="Controls">
-                    <Button  variant="outline-light" onClick={handleCreate}>+</Button>
-                    <Button  variant="outline-light" onClick={handleDelete}>X</Button>
-                </ButtonGroup>
-            </Card.Header>
-            <Card.Body>
+
+    return(
+        <div className="card"> 
+            <Card bg="white" text="black" ref={ref} >
+                <div className="toolbar">
+                    <ButtonGroup aria-label="Controls">
+                        <Button  className="text-right"  variant="light" onClick={handleCreate}>+</Button>
+                        <Button  className="text-right"  variant="light" onClick={handleDelete}>X</Button>
+                        <Button  className="text-right"  variant="light" onClick={handleEdit}>O</Button>
+                    </ButtonGroup>
+                </div>
+                <Card.Body>
+
+                    <Card.Title>1. Zadanie</Card.Title>
+
+                    {
+                        edit.edit ? 
+                            <Form onSubmit={handleEditSubmit}>
+                                <Form.Group controlId="exampleForm.ControlTextarea1">
+                                    <Form.Control as = "textarea" value ={stateTodo.assignment} onChange={handleEditChange} rows="3"/>
+                                </Form.Group>
+                                <Button className="float-right" variant="secondary" type="submit">Save</Button>
+                            </Form>
+                        :
+                            <ReactMarkdown source={stateTodo.assignment}/>
+                    }
+
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="exampleForm.ControlTextarea1">
-                            <Form.Label> Zadanie </Form.Label>
+                            <Form.Label> Odpoveď: </Form.Label>
                             <Form.Control as = "textarea" value ={stateTodo.content} onChange={handleChange} rows="3"/>
                         </Form.Group>
-                        <Button variant="primary" type="submit">Save</Button>
+                        <Button className="float-right" variant="secondary" type="submit">Save</Button>
                     </Form>
-                
-            </Card.Body>
-        </Card>
+                    
+                </Card.Body>
+            </Card>
+        </div>
     )}
    
    
@@ -128,9 +171,9 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
 const mapDispatchToProps = (dispatch) => {
     return {
         updateTodo: (todo) => dispatch(updateTodo(todo)),
-        createTodo: (cardOrder) => dispatch(createTodo(cardOrder)),
+        createTodo: (cardOrder,taskName) => dispatch(createTodo(cardOrder,taskName)),
         deleteTodo: (todo) => dispatch(deleteTodo(todo)),
-        updateOrder: (cardOrder) => dispatch(updateOrder(cardOrder)) 
+        updateOrder: (cardOrder,taskName) => dispatch(updateOrder(cardOrder,taskName)) 
 
     }
 }

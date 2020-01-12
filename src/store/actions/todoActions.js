@@ -1,15 +1,16 @@
 
 
-export const createTodo = (cardOrder) => {
+export const createTodo = (cardOrder,taskName) => {
     console.log(cardOrder)
     return  (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore();
         firestore.collection("todos").add({
             title : "",
+            assignment:"",
             content: ""
         }).then(
             function(docRef){
-                dispatch(updateOrder([...cardOrder,docRef.id]))
+                dispatch(updateOrder([...cardOrder,docRef.id],taskName))
             }
         )
         .then(() => {
@@ -35,6 +36,7 @@ export const updateTodo = (todo) => {
         
         col.update({
             title : todo.title,
+            assignment:todo.assignment,
             content: todo.content
         }).then(() => {
             dispatch({
@@ -72,11 +74,14 @@ export const deleteTodo = (todo) => {
 }
 
 
-export const updateOrder = (cardOrder) => {
+
+export const updateOrder = (cardOrder, name) => {
     console.log("UPDATE ORDER", cardOrder)
+    console.log("UPDATE ORDER", name)
     return  (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore();
-        const col = firestore.collection("cardOrder").doc("order")
+        const col = firestore.collection("cardOrder").doc(name)
+
         //ARRAYUNION on add
         col.update({
             order:cardOrder            
