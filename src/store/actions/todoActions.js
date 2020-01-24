@@ -9,16 +9,15 @@ export const createTodo = (cardOrder,taskName) => {
             assignment:"",
             content: ""
         }).then(
-            function(docRef){
-                dispatch(updateOrder([...cardOrder,docRef.id],taskName))
-            }
-        )
+            (docRef) => _updateOrder([...cardOrder,docRef.id], taskName, dispatch, firestore)
+        ) /*
         .then(() => {
             dispatch({
                 type: "CREATE_TODO",
             
             })
-        }).catch((err) => {
+        })*/
+        .catch((err) => {
             dispatch({
                 type: "CREATE_TODO_ERROR",
                 err
@@ -79,22 +78,26 @@ export const updateOrder = (cardOrder, name) => {
     console.log("UPDATE ORDER", cardOrder)
     console.log("UPDATE ORDER", name)
     return  (dispatch, getState, { getFirebase, getFirestore }) => {
-        const firestore = getFirestore();
-        const col = firestore.collection("cardOrder").doc(name)
-
-        //ARRAYUNION on add
-        col.update({
-            order:cardOrder            
-        }).then(() => {
-            dispatch({
-                type: "UPDATE_ORDER",
-            })
-        }).catch((err) => {
-            dispatch({
-                type: "UPDATE_TODO_ERROR",
-                err
-            })
-        })
+        _updateOrder(cardOrder, name, dispatch, getFirestore());
     }
     
 }
+
+const _updateOrder = (cardOrder, name, dispatch, firestore) => {
+    console.log("_updateOrder:", cardOrder, name);
+    firestore.collection("cardOrder").doc(name).update({
+        order:cardOrder,
+        __thisisjustatest: 1
+    }).then(() => {
+        console.log("dispatch after _updateOrder");
+        dispatch({
+            type: "UPDATE_ORDER",
+        })
+    }).catch((err) => {
+        dispatch({
+            type: "UPDATE_TODO_ERROR",
+            err
+        })
+    })
+}
+
