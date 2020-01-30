@@ -1,6 +1,7 @@
 ## Bakalárska práca
 
-**Východisková kapitola:** [Stiahni](Vychodiska.pdf)
+**Východisková kapitola:** [Otvor](Vychodiska.pdf)
+**Prototyp:** [Zdrojové súbory a obrázky]
 
 **Názov:** Interaktívny pracovný hárok pre výučby logiky pre informatikov
 
