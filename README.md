@@ -3,7 +3,7 @@
 **Východisková kapitola:** [Otvor](Vychodiska.pdf)  
 **Prototyp:** [Zdrojové súbory a obrázky](Prototyp.zip)  
 
-**Názov:** Interaktívny pracovný hárok pre výučby logiky pre informatikov
+**Názov:** Interaktívny pracovný hárok pre výučby logiky pre informatikov  
 
 **Študent:** Nikolaj Kniha  
 
