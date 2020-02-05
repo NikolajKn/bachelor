@@ -4,7 +4,7 @@ import {ListGroup} from "react-bootstrap";
 
 
 const SecondNavbar = ({names,changeTask}) => {
-
+    console.log(names )
     const renderItem = (name, index) => {
         return(
             <ListGroup.Item as="li" className = "secondNavItem" key={index} onClick={() => changeTask(name)}>{name}</ListGroup.Item>

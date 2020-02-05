@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Navbar from './components/layout/Navigation';
 import Dashboard from './components/dashboard/Dashboard';
+import DashWrapper from './components/dashboard/DashWrapper';
 import ToDo from './components/todo/ToDo';
 import SignIn from './components/auth/SignIn.js';
 import SignUp from './components/auth/SignUp.js';
@@ -20,7 +21,7 @@ class App extends Component {
           <Navbar/>
           <Switch>
             <Route exact path ="/" component = {Home} />
-            <Route path = "/tasks" component={Dashboard}/>
+            <Route path = "/tasks" component={DashWrapper}/>
             <Route path = "/notice" component={NoticeBoard}/>
           </Switch>
         </div>

@@ -7,23 +7,48 @@ import {compose} from "redux";
 import {Container, Row, Col, Spinner} from "react-bootstrap";
 import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
+import { updateOrder } from "../../store/actions/todoActions";
 
 
 
 class Dashboard extends Component{
 
-
-    state = {
-        task : "order"
+    constructor(props){
+        super(props)
+        this.state = {
+            task:"",
+            order:[]
+        }
     }
-     
     
-    render(){
+    names = []
+    componentDidMount(){
+        this.names = []
+        this.setState({task:this.props.cardOrder[0].id,order:this.props.cardOrder[0].order})
+        this.props.cardOrder.map(item => (
+            this.names = [...this.names,item.id]
+            ))   
+    }
 
-        const {todos} = this.props;
-        var {cardOrder} = this.props
-        if(!todos || !cardOrder){
-            
+ 
+    changeOrder = (item) => {
+        this.setState({order:item})
+        this.props.updateOrder(this.state.order, this.state.task)
+    } 
+
+
+    changeTask = (name) => {
+        this.props.cardOrder.map(item => (
+            name === item.id ? 
+                this.setState({task:item.id, order:item.order})
+            : 
+                console.log("NIE HURA")
+        ))
+    }
+   
+
+    render(){      
+        if(this.state.id === ""){
             return(
                 <Container>
                     <div className="text-center">
@@ -34,18 +59,74 @@ class Dashboard extends Component{
                 </Container>
             )
         }else{
-        const changeTask = (name) => {
-            this.setState({task:name})
-        }
+            
+            console.log("DASHBOARD TODOS",this.props)
+            console.log("STATE",this.state)
+            var cards = this.props.cards
+            var taskCards = Object.values(this.state.order).map(item => ({...cards[item], id: item}) )
+            return(
+                <Row>
+                    <Col sm = {2} >
+                        <div className="secondnav">
+                            <SecondNavbar names ={this.names} changeTask = {this.changeTask} />
+                        </div>
+                    </Col>
+                  
+                    <Col sm = {9}>  
+                        <DndProvider backend={HTML5Backend}>
+                            <TodoList cards = {taskCards} cardOrder={this.state.order} changeOrder={this.changeOrder} taskName = {this.state.task}/> 
+                        </DndProvider>
+                    </Col>
+                    <Col />
+                </Row>
+             
+                
+            )
+            }
+    }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateOrder: (cardOrder, taskName) => dispatch(updateOrder(cardOrder,taskName)) 
+    }
+}
+
+
+export default connect(null,mapDispatchToProps)(Dashboard)
+
+
+
+
+/*
+const mapStateToProps = (state) => {
+    return {
+        todos:state.firestore.data.todos,
+        cardOrder:state.firestore.ordered.cardOrder
+    }
+}
+
+
+
+
+export default compose(firestoreConnect([{collection:'todos'},{collection:'cardOrder'}]),connect(mapStateToProps))(Dashboard)
+
+
+else{
+            const changeTask = (name) => {
+                this.setState({task:name})
+            }
     
-    
+            
+            console.log(this.props.cardOrder[0])
+            
+            this.setState({...this.state, order : this.props.cardOrder[0].order})
+            console.log(this.state)
         
-        
-        
-        var {cardOrder} = this.props.cardOrder[0]
-       
-        const changeOrder = (item) => {
-            cardOrder = item
+            const changeOrder = (item) => {
+                this.setState({task:item.id, order:item.order})
+                console.log(this.state)
         } 
 
         
@@ -84,16 +165,4 @@ class Dashboard extends Component{
     }
 }
 
-
-const mapStateToProps = (state) => {
-    return {
-        todos:state.firestore.data.todos,
-        cardOrder:state.firestore.ordered.cardOrder
-    }
-}
-
-
-
-
-export default compose(firestoreConnect([{collection:'todos'},{collection:'cardOrder'}]),connect(mapStateToProps))(Dashboard)
-
+*/

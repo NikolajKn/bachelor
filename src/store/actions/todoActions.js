@@ -1,4 +1,4 @@
-
+/*
 
 export const createTodo = (cardOrder,taskName) => {
     console.log(cardOrder)
@@ -10,14 +10,7 @@ export const createTodo = (cardOrder,taskName) => {
             content: ""
         }).then(
             (docRef) => _updateOrder([...cardOrder,docRef.id], taskName, dispatch, firestore)
-        ) /*
-        .then(() => {
-            dispatch({
-                type: "CREATE_TODO",
-            
-            })
-        })*/
-        .catch((err) => {
+        ).catch((err) => {
             dispatch({
                 type: "CREATE_TODO_ERROR",
                 err
@@ -26,6 +19,58 @@ export const createTodo = (cardOrder,taskName) => {
     }
     
 }
+*/
+
+
+export const createTodo = (cardOrder,taskName) => {
+    console.log(cardOrder)
+    
+    return  (dispatch, getState, { getFirebase, getFirestore }) => {
+        const firestore = getFirestore();
+        var cardsColRef = firestore.collection("todos")
+        var orderDocRef = firestore.collection("cardOrder").doc(taskName)
+
+        var newCardRef = firestore.collection('todos').doc()
+        var batch = firestore.batch()
+        batch.set(newCardRef,{title : "",assignment:"",content: ""})
+        batch.update(orderDocRef,{order:[...cardOrder,newCardRef.id]})
+        batch.commit()
+
+        /*
+        return firestore.runTransaction(function(transaction){
+
+            return transaction.get(cardsColRef,orderDocRef).then(function(cardsRef, orderRef){
+                if(!cardsRef.exists || !orderRef.exists){
+                    throw "Document doesnt exist"
+                }
+                var newCards = cardsRef.data().add({
+                    title : "",
+                    assignment:"",
+                    content: ""
+                })
+
+                var newOrder = orderRef.data().update({
+                    order:cardOrder})
+                
+                console.log(newCards)
+                console.log(newOrder)
+
+                transaction.update(cardsColRef, newCards)
+                transaction.update(orderRef, newOrder)
+            }
+        )
+        }
+        )
+    
+    .then(function() {
+        console.log("Transaction successfully committed!");
+    }).catch(function(error) {
+        console.log("Transaction failed: ", error);
+    })*/
+}
+}
+
+
 
 export const updateTodo = (todo) => {
     return  (dispatch, getState, { getFirebase, getFirestore }) => {
@@ -87,7 +132,6 @@ const _updateOrder = (cardOrder, name, dispatch, firestore) => {
     console.log("_updateOrder:", cardOrder, name);
     firestore.collection("cardOrder").doc(name).update({
         order:cardOrder,
-        __thisisjustatest: 1
     }).then(() => {
         console.log("dispatch after _updateOrder");
         dispatch({

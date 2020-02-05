@@ -11,14 +11,10 @@ import update from 'immutability-helper';
 
 
 
-const ToDoList = ({todos,cardOrder,updateOrder,taskName}) => {
-   
-    const [cards, setCards] = useState([])
-
-    const [order, setOrder] = useState(cardOrder.order)
-
-    console.log("STATE ORDER ",order)
-    console.log("SEND ORDER ",cardOrder.order)
+const ToDoList = ({cards,cardOrder, changeOrder, updateOrder,taskName}) => {
+    
+/*
+    console.log(cardOrder)
     if(cardOrder.order !== order){
         console.log("BBBBBBBBBBBBBBBBBBBBBBBBB")
         console.log("ORDER1: ",order)
@@ -28,31 +24,29 @@ const ToDoList = ({todos,cardOrder,updateOrder,taskName}) => {
         setOrder(cardOrder.order) 
         setCards(Object.values(order).map(item => ({...todos[item], id: item}) ));
     
-        console.log("ORDER1: ",order)
+       
     }
   
 
-    if(cardOrder.order.length !== order.length){
+    if(cardOrder.length !== order.length){
         console.log("2. IF: ",order)
         setOrder(cardOrder.order) 
         setCards(Object.values(order).map(item => ({...todos[item], id: item}) ));
         console.log("2. IF:: ",order)
-    
-    
     }
-  
+ 
     if(order.length !== cards.length){
         console.log("3. IF:: ",order)
         setCards(Object.values(order).map(item => ({...todos[item], id: item}) ));
         console.log("3. IF:: ",order)
     }
-
+ */
     const moveCard = useCallback(
         (dragIndex, hoverIndex) => {
-          const dragCard = order[dragIndex]
-          console.log("BEFORE MOVE ",order)
-          setOrder(
-            update(order, {
+          const dragCard = cardOrder[dragIndex]
+          console.log("BEFORE MOVE ",cardOrder)
+          changeOrder(
+            update(cardOrder, {
               $splice: [
                 [dragIndex, 1],
                 [hoverIndex, 0, dragCard]
@@ -60,8 +54,9 @@ const ToDoList = ({todos,cardOrder,updateOrder,taskName}) => {
             }),
           )
         },
-        [order],
-        console.log("ORDER: ",order)
+        [cardOrder],
+        
+        console.log("ORDER: ",cardOrder)
       )
   
 
@@ -72,9 +67,9 @@ const ToDoList = ({todos,cardOrder,updateOrder,taskName}) => {
                 <ToDo 
                     todo = {item}
                     index = {index}
-                    cardOrder = {order}
+                    cardOrder = {cardOrder}
                     moveCard = {moveCard}
-                    setOrder = {setOrder}
+                    setOrder = {changeOrder}
                     taskName = {taskName}
                     />
            </ListGroup.Item>  

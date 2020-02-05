@@ -45,9 +45,10 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
                 return
               }
             
+            console.log("before",cardOrder)
             moveCard(dragIndex, hoverIndex)
             console.log(item.index)
-        
+            console.log("after",cardOrder)
             item.index = hoverIndex
         },
     })
@@ -71,17 +72,11 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
 
     
     const handleChange = (e) => {
-       /* const tempState = stateTodo
-        tempState["content"] = e.target.value
-        console.log("TEMP STATE:",tempState)*/
         setStateTodo({...stateTodo,
             content: e.target.value})
     }
 
     const handleEditChange = (e) => {
-        /* const tempState = stateTodo
-         tempState["content"] = e.target.value
-         console.log("TEMP STATE:",tempState)*/
          setStateTodo({...stateTodo,
              assignment: e.target.value})
      }
@@ -89,22 +84,17 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
     const handleSubmit = (e) => {
         e.preventDefault();
         updateTodo(stateTodo)
-        /*
-        this.props.updateTodo(this.state)
-        */
     }
 
     const handleEditSubmit = (e) => {
         e.preventDefault();
         updateTodo(stateTodo)
         setEdit({edit:false})
-        /*
-        this.props.updateTodo(this.state)
-        */
     }
 
     const handleCreate = (e) => {
         e.preventDefault()
+        console.log("ASDASFASFA")
         createTodo(cardOrder,taskName)
     }
     
