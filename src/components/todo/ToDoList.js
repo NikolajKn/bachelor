@@ -75,9 +75,8 @@ const ToDoList = ({cards,cardOrder, changeOrder, updateOrder,taskName}) => {
            </ListGroup.Item>  
         )
     }
-   
+    console.log("")
     return(
-        
         <ListGroup variant="flush">
             {cards && cards.map( (item,i) => {
                 return( 
@@ -86,7 +85,7 @@ const ToDoList = ({cards,cardOrder, changeOrder, updateOrder,taskName}) => {
             })}
 
         </ListGroup>
-      
+        
 
 
         /*
@@ -111,6 +110,7 @@ const ToDoList = ({cards,cardOrder, changeOrder, updateOrder,taskName}) => {
         */
     
     )
+    
 }
 
 

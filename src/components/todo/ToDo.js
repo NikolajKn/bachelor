@@ -13,6 +13,8 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
     const ref = useRef(null)
     const [stateTodo, setStateTodo] = useState(todo) 
     const [edit, setEdit] = useState({edit:false})
+    const [focused, setFocused] = useState({focused:false})
+
 
     
     const [, drop] = useDrop({
@@ -52,7 +54,8 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
             item.index = hoverIndex
         },
     })
-  
+
+   
 
     const [{isDragging}, drag] = useDrag({
         item : {type : ItemTypes.TODO,todo,index},
@@ -68,23 +71,24 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
          setEdit({edit:true})
     }
 
-
-
     
     const handleChange = (e) => {
         setStateTodo({...stateTodo,
             content: e.target.value})
     }
 
+
     const handleEditChange = (e) => {
          setStateTodo({...stateTodo,
              assignment: e.target.value})
      }
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
         updateTodo(stateTodo)
     }
+    
 
     const handleEditSubmit = (e) => {
         e.preventDefault();
@@ -92,14 +96,14 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
         setEdit({edit:false})
     }
 
+
     const handleCreate = (e) => {
         e.preventDefault()
-        console.log("ASDASFASFA")
         createTodo(cardOrder,taskName)
     }
     
+
     const handleDelete = (e) => {
-        
         e.preventDefault()
         deleteTodo(stateTodo)
 
@@ -112,26 +116,35 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
         }
     }
     
-  
+    /**
+     * On click set focus on card
+     */
+    //
+    const onCardClick = () => {
+        if(focused.focused === false){
+            setFocused({focused:true})
+        }else{
+            setFocused({focused:false})
+        }
+        
+        console.log("REF here", ref.current, focused.focused)
+      };
 
 
     return(
-        <div className="card"> 
+        <div className="cardCell"  onClick={onCardClick}> 
             <Card bg="white" text="black" ref={ref} >
                 <div className="toolbar">
                     <ButtonGroup aria-label="Controls">
-                        <Button  className="text-right"  variant="light" onClick={handleCreate}>+</Button>
                         <Button  className="text-right"  variant="light" onClick={handleDelete}>X</Button>
                         <Button  className="text-right"  variant="light" onClick={handleEdit}>O</Button>
                     </ButtonGroup>
                 </div>
-                <Card.Body>
-
+                <Card.Body >
                     <Card.Title>1. Zadanie</Card.Title>
-
                     {
                         edit.edit ? 
-                            <Form onSubmit={handleEditSubmit}>
+                            <Form onSubmit={handleEditSubmit} >
                                 <Form.Group controlId="exampleForm.ControlTextarea1">
                                     <Form.Control as = "textarea" value ={stateTodo.assignment} onChange={handleEditChange} rows="3"/>
                                 </Form.Group>
@@ -151,6 +164,9 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
                     
                 </Card.Body>
             </Card>
+            <div className="addCard">
+                <Button className="addCardButton" variant="light" onClick={handleCreate}>Add</Button>
+            </div>
         </div>
     )}
    

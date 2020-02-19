@@ -32,9 +32,14 @@ export const createTodo = (cardOrder,taskName) => {
 
         var newCardRef = firestore.collection('todos').doc()
         var batch = firestore.batch()
+        batch.update(orderDocRef,{id:orderDocRef.id,order:[...cardOrder,newCardRef.id]})
         batch.set(newCardRef,{title : "",assignment:"",content: ""})
-        batch.update(orderDocRef,{order:[...cardOrder,newCardRef.id]})
+        
         batch.commit()
+
+        dispatch({
+            type: "CREATE_TODO"
+        })
 
         /*
         return firestore.runTransaction(function(transaction){

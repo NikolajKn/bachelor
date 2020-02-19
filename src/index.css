@@ -31,10 +31,6 @@ body {
   border-color: grey; 
 }
 
-.card:focus {
-  background-color: red;
-
-}
 
 .mainText{
   margin-top: 60px;
@@ -53,6 +49,48 @@ form button, form h5{
 
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.cardCell:focus-within{
+  box-shadow: 8px 9px 10px -9px rgba(0,0,0,0.75);
+    transition: box-shadow 0.3s;
+}
+
+.cardCell:focus{
+  box-shadow: 8px 9px 10px -9px rgba(0,0,0,0.75);
+    transition: box-shadow 0.3s;
+}
+
+.secondNavItem:hover{
+  box-shadow: 8px 9px 10px -9px rgba(0,0,0,0.75);
+  color: white;
+  background-color: #6c757d;
+  transition: background-color 0.3s;
+}
+
+.secondNavItem:active{
+  background-color: #343a40;
+}
+
+.addCard{
+  position: relative;
+  text-align: center;
+  height: 20px;
+  z-index: 1;
+}
+
+
+.addCardButton{
+  position: relative;
+  width: 15%;
+  font-size: 40%;
+  left: 40%;
+  color:black;
+  display: none;
+  z-index: 2;
+}
+
+.addCard:hover .addCardButton{
+  display: block;
 }

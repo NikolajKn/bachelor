@@ -21,6 +21,7 @@ class Dashboard extends Component{
         }
     }
     
+    
     names = []
     componentDidMount(){
         this.names = []
@@ -30,7 +31,20 @@ class Dashboard extends Component{
             ))   
     }
 
- 
+    componentDidUpdate(prevProps){
+        console.log(prevProps)
+        console.log(this.props)
+        if(prevProps.cardOrder !== this.props.cardOrder){
+            console.log("ASDAGDSAGD")
+            this.props.cardOrder.map(item => (
+                this.state.task === item.id ? 
+                    this.setState({task:item.id, order:item.order})
+                : 
+                    console.log("NIE HURA")
+            ))
+        }
+    }
+
     changeOrder = (item) => {
         this.setState({order:item})
         this.props.updateOrder(this.state.order, this.state.task)
