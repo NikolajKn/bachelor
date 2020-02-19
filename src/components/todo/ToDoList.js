@@ -44,7 +44,6 @@ const ToDoList = ({cards,cardOrder, changeOrder, updateOrder,taskName}) => {
     const moveCard = useCallback(
         (dragIndex, hoverIndex) => {
           const dragCard = cardOrder[dragIndex]
-          console.log("BEFORE MOVE ",cardOrder)
           changeOrder(
             update(cardOrder, {
               $splice: [
@@ -55,8 +54,6 @@ const ToDoList = ({cards,cardOrder, changeOrder, updateOrder,taskName}) => {
           )
         },
         [cardOrder],
-        
-        console.log("ORDER: ",cardOrder)
       )
   
 
@@ -75,7 +72,7 @@ const ToDoList = ({cards,cardOrder, changeOrder, updateOrder,taskName}) => {
            </ListGroup.Item>  
         )
     }
-    console.log("")
+
     return(
         <ListGroup variant="flush">
             {cards && cards.map( (item,i) => {

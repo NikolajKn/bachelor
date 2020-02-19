@@ -47,10 +47,7 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
                 return
               }
             
-            console.log("before",cardOrder)
             moveCard(dragIndex, hoverIndex)
-            console.log(item.index)
-            console.log("after",cardOrder)
             item.index = hoverIndex
         },
     })
@@ -97,9 +94,14 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
     }
 
 
+    function checkIndex(id){
+        return stateTodo.id === id
+    }
+
     const handleCreate = (e) => {
         e.preventDefault()
-        createTodo(cardOrder,taskName)
+        var insertIndex = cardOrder.findIndex(checkIndex) + 1
+        createTodo(cardOrder,taskName,insertIndex)
     }
     
 
@@ -127,7 +129,6 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
             setFocused({focused:false})
         }
         
-        console.log("REF here", ref.current, focused.focused)
       };
 
 
@@ -177,7 +178,7 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
 const mapDispatchToProps = (dispatch) => {
     return {
         updateTodo: (todo) => dispatch(updateTodo(todo)),
-        createTodo: (cardOrder,taskName) => dispatch(createTodo(cardOrder,taskName)),
+        createTodo: (cardOrder,taskName,insertIndex) => dispatch(createTodo(cardOrder,taskName,insertIndex)),
         deleteTodo: (todo) => dispatch(deleteTodo(todo)),
         updateOrder: (cardOrder,taskName) => dispatch(updateOrder(cardOrder,taskName)) 
 

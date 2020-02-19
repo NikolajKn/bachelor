@@ -22,8 +22,7 @@ export const createTodo = (cardOrder,taskName) => {
 */
 
 
-export const createTodo = (cardOrder,taskName) => {
-    console.log(cardOrder)
+export const createTodo = (cardOrder,taskName, insertIndex = null) => {
     
     return  (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore();
@@ -31,15 +30,18 @@ export const createTodo = (cardOrder,taskName) => {
         var orderDocRef = firestore.collection("cardOrder").doc(taskName)
 
         var newCardRef = firestore.collection('todos').doc()
+
+       
         var batch = firestore.batch()
-        batch.update(orderDocRef,{id:orderDocRef.id,order:[...cardOrder,newCardRef.id]})
+        if(insertIndex === null){
+            batch.update(orderDocRef,{id:orderDocRef.id,order:[...cardOrder,newCardRef.id]})
+        }else{
+            batch.update(orderDocRef,{id:orderDocRef.id,order:[...cardOrder.slice(0,insertIndex), newCardRef.id, ...cardOrder.slice(insertIndex)]}) 
+        }
+        
         batch.set(newCardRef,{title : "",assignment:"",content: ""})
         
         batch.commit()
-
-        dispatch({
-            type: "CREATE_TODO"
-        })
 
         /*
         return firestore.runTransaction(function(transaction){

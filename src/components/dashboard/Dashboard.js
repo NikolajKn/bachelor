@@ -32,15 +32,12 @@ class Dashboard extends Component{
     }
 
     componentDidUpdate(prevProps){
-        console.log(prevProps)
-        console.log(this.props)
         if(prevProps.cardOrder !== this.props.cardOrder){
-            console.log("ASDAGDSAGD")
             this.props.cardOrder.map(item => (
                 this.state.task === item.id ? 
                     this.setState({task:item.id, order:item.order})
                 : 
-                    console.log("NIE HURA")
+                    console.log("")
             ))
         }
     }
@@ -56,7 +53,7 @@ class Dashboard extends Component{
             name === item.id ? 
                 this.setState({task:item.id, order:item.order})
             : 
-                console.log("NIE HURA")
+                console.log("")
         ))
     }
    
