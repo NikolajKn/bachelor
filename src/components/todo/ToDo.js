@@ -8,12 +8,15 @@ import {useDrag, useDrop } from "react-dnd"
 import { ItemTypes } from '../../constants/ItemTypes';
 
 
+import SimpleMDE from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
+
+
 const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, index,moveCard, taskName}) => {
 
     const ref = useRef(null)
     const [stateTodo, setStateTodo] = useState(todo) 
     const [edit, setEdit] = useState({edit:false})
-    const [focused, setFocused] = useState({focused:false})
 
 
     
@@ -75,12 +78,6 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
     }
 
 
-    const handleEditChange = (e) => {
-         setStateTodo({...stateTodo,
-             assignment: e.target.value})
-     }
-
-
     const handleSubmit = (e) => {
         e.preventDefault();
         updateTodo(stateTodo)
@@ -117,63 +114,60 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
             updateOrder(array,taskName)
         }
     }
-    
-    /**
-     * On click set focus on card
-     */
-    //
-    const onCardClick = () => {
-        if(focused.focused === false){
-            setFocused({focused:true})
-        }else{
-            setFocused({focused:false})
-        }
-        
-      };
 
+    const handleStuff = () => {
+        console.log("BLA")
+    }
+
+    const handleStuff1 = () => {
+        console.log("3")
+    }
 
     return(
-        <div className="cardCell"  onClick={onCardClick}> 
-            <Card bg="white" text="black" ref={ref} >
-                <div className="toolbar">
-                    <ButtonGroup aria-label="Controls">
-                        <Button  className="text-right"  variant="light" onClick={handleDelete}>X</Button>
-                        <Button  className="text-right"  variant="light" onClick={handleEdit}>O</Button>
-                    </ButtonGroup>
-                </div>
-                <Card.Body >
-                    <Card.Title>1. Zadanie</Card.Title>
-                    {
-                        edit.edit ? 
-                            <Form onSubmit={handleEditSubmit} >
-                                <Form.Group controlId="exampleForm.ControlTextarea1">
-                                    <Form.Control as = "textarea" value ={stateTodo.assignment} onChange={handleEditChange} rows="3"/>
-                                </Form.Group>
-                                <Button className="float-right" variant="secondary" type="submit">Save</Button>
-                            </Form>
-                        :
-                            <ReactMarkdown source={stateTodo.assignment}/>
-                    }
-
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="exampleForm.ControlTextarea1">
-                            <Form.Label> Odpoveď: </Form.Label>
-                            <Form.Control as = "textarea" value ={stateTodo.content} onChange={handleChange} rows="3"/>
-                        </Form.Group>
-                        <Button className="float-right" variant="secondary" type="submit">Save</Button>
-                    </Form>
-                    
-                </Card.Body>
-            </Card>
+        <div className="cardCell" onDoubleClick={handleStuff}> 
+        <input className = "tempCheckbox" type = "checkbox" id={stateTodo.id} onFocus={console.log("Mam focus")}/>
+            
+                
+                <Card border="white" bg="white" text="black" ref={ref} onClick={handleStuff1}>
+                    <div className="toolbar">
+                        <ButtonGroup aria-label="Controls">
+                            <Button  className="text-right"  variant="light" onClick={handleDelete}>X</Button>
+                            <Button  className="text-right"  variant="light" onClick={handleEdit}  onFocus={console.log("Mam focus")}>O</Button>
+                        </ButtonGroup>
+                    </div>
+                    <label for={stateTodo.id}>
+                    <Card.Body >
+                        {
+                            edit.edit ? 
+                                <Form onSubmit={handleEditSubmit} >
+                                    <Form.Group controlId="exampleForm.ControlTextarea1">
+                                        <SimpleMDE onChange={handleChange} value = {stateTodo.content} options={{toolbar:  ["preview","|","bold", "italic", "strikethrough", "|", "heading", "heading-smaller","code", "quote", "|","side-by-side","fullscreen"]}}/>
+                                    </Form.Group>
+                                    <Button className="float-right" variant="secondary" type="submit">Save</Button>
+                                </Form>
+                            :
+                                <ReactMarkdown source={stateTodo.content}/>
+                        }
+                    </Card.Body>
+                    </label>
+                </Card>
+            
             <div className="addCard">
-                <Button className="addCardButton" variant="light" onClick={handleCreate}>Add</Button>
+                <Button className="addCardButton" variant="outline-dark" onClick={handleCreate}>Add</Button>
             </div>
         </div>
     )}
    
    
 
-
+/*
+                <Form onSubmit={handleSubmit}>
+                        <Form.Group controlId="exampleForm.ControlTextarea1">
+                            <Form.Control as = "textarea" value ={stateTodo.content} onChange={handleChange} rows="3"/>
+                        </Form.Group>
+                        <Button className="float-right" variant="secondary" type="submit">Save</Button>
+                    </Form>
+*/
 
 const mapDispatchToProps = (dispatch) => {
     return {

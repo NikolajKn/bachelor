@@ -4,43 +4,15 @@ import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {ListGroup} from "react-bootstrap";
 import ToDo from "./ToDo"
-import {updateOrder,newOrder} from "../../store/actions/todoActions"
+import {updateOrder,createTodo} from "../../store/actions/todoActions"
 
 import update from 'immutability-helper';
 
 
 
 
-const ToDoList = ({cards,cardOrder, changeOrder, updateOrder,taskName}) => {
+const ToDoList = ({cards,cardOrder, changeOrder, updateOrder, taskName, createTodo}) => {
     
-/*
-    console.log(cardOrder)
-    if(cardOrder.order !== order){
-        console.log("BBBBBBBBBBBBBBBBBBBBBBBBB")
-        console.log("ORDER1: ",order)
-        console.log("ORDER2: ",cardOrder)
-        
-        //updateOrder(order)
-        setOrder(cardOrder.order) 
-        setCards(Object.values(order).map(item => ({...todos[item], id: item}) ));
-    
-       
-    }
-  
-
-    if(cardOrder.length !== order.length){
-        console.log("2. IF: ",order)
-        setOrder(cardOrder.order) 
-        setCards(Object.values(order).map(item => ({...todos[item], id: item}) ));
-        console.log("2. IF:: ",order)
-    }
- 
-    if(order.length !== cards.length){
-        console.log("3. IF:: ",order)
-        setCards(Object.values(order).map(item => ({...todos[item], id: item}) ));
-        console.log("3. IF:: ",order)
-    }
- */
     const moveCard = useCallback(
         (dragIndex, hoverIndex) => {
           const dragCard = cardOrder[dragIndex]
@@ -57,8 +29,11 @@ const ToDoList = ({cards,cardOrder, changeOrder, updateOrder,taskName}) => {
       )
   
 
+    const createCellIfEmpty = () => {
+        createTodo(cardOrder,taskName,0)
+    }
 
-    const renderTodo = (item, index) => {
+    const renderCell = (item, index) => {
         return(
             <ListGroup.Item className = "card" key={item.id}>
                 <ToDo 
@@ -73,47 +48,27 @@ const ToDoList = ({cards,cardOrder, changeOrder, updateOrder,taskName}) => {
         )
     }
 
+
+    if((cards.length === 0) && (taskName !== "")){
+        createCellIfEmpty()
+    }
+
     return(
         <ListGroup variant="flush">
             {cards && cards.map( (item,i) => {
                 return( 
-                    renderTodo(item,i)
+                    renderCell(item,i)
                 )
             })}
-
         </ListGroup>
-        
-
-
-        /*
-
-        <ListGroup.Item>{
-                        <Link to={"/todo/" + todo.id}>
-                            <ToDoSummary todo={todo} key={todo.id}/> 
-                        </Link>}
-                    </ListGroup.Item>
-
-
-
-        <div className="project-list section">
-           {todos && todos.map( todo => {
-               return(
-                   <Link to={"/todo/" + todo.id}>
-                        <ToDoSummary todo={todo} key={todo.id}/>
-                   </Link>
-               )
-           })}
-        </div>
-        */
-    
-    )
-    
+    )    
 }
 
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateOrder: (cardOrder, taskName) => dispatch(updateOrder(cardOrder,taskName)) 
+        updateOrder: (cardOrder, taskName) => dispatch(updateOrder(cardOrder,taskName)),
+        createTodo: (cardOrder,taskName,insertIndex) => dispatch(createTodo(cardOrder,taskName,insertIndex)), 
     }
 }
 

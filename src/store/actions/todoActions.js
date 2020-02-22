@@ -39,7 +39,7 @@ export const createTodo = (cardOrder,taskName, insertIndex = null) => {
             batch.update(orderDocRef,{id:orderDocRef.id,order:[...cardOrder.slice(0,insertIndex), newCardRef.id, ...cardOrder.slice(insertIndex)]}) 
         }
         
-        batch.set(newCardRef,{title : "",assignment:"",content: ""})
+        batch.set(newCardRef,{content: ""})
         
         batch.commit()
 
@@ -86,8 +86,6 @@ export const updateTodo = (todo) => {
         
         
         col.update({
-            title : todo.title,
-            assignment:todo.assignment,
             content: todo.content
         }).then(() => {
             dispatch({
