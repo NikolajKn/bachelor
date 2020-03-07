@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import {connect} from "react-redux";
 
 import ReactMarkdown from "react-markdown"
@@ -29,10 +29,7 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
             }
             const dragIndex = item.index
             const hoverIndex = index
-            /*
-            console.log("Drag: ",dragIndex)
-            console.log("Hover: ",hoverIndex)
-            */
+
             if(dragIndex === hoverIndex){
                 return
             }
@@ -67,14 +64,19 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
     drag(drop(ref))
 
 
-    const handleEdit = () => {
+    const handleBeginEdit = () => {
          setEdit({edit:true})
+         
+    }
+
+    const handleEndEdit = () => {
+        setEdit({edit:false})
     }
 
     
     const handleChange = (e) => {
         setStateTodo({...stateTodo,
-            content: e.target.value})
+            content: e})
     }
 
 
@@ -104,39 +106,61 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
 
     const handleDelete = (e) => {
         e.preventDefault()
-        deleteTodo(stateTodo)
+        
 
-        var array = [...cardOrder]; // make a separate copy of the array
-        var index = array.indexOf(stateTodo.id)
+        if(cardOrder.length > 1){
 
-        if (index !== -1) {
-            array.splice(index, 1);
-            updateOrder(array,taskName)
+            deleteTodo(stateTodo)
+            var array = [...cardOrder]; // make a separate copy of the array
+            var index = array.indexOf(stateTodo.id)
+
+            if (index !== -1) {
+                array.splice(index, 1);
+                updateOrder(array,taskName)
+            }
         }
     }
 
-    const handleStuff = () => {
-        console.log("BLA")
+    const handleStuff1 = () => {
+        console.log("Single click")
     }
 
-    const handleStuff1 = () => {
-        console.log("3")
+    const handleStuff2 = () => {
+        console.log("Double click")
     }
+
+    const renderCell = () => {
+
+    }
+
+    const renderClickedCell = () => {
+
+    }
+
+    var otherCells= []
+    useEffect(() => {
+        /*
+        for(var i = 0; i < document.getElementsByClassName("cardCell").length;i++){
+            console.log(i)
+            console.log(document.getElementsByClassName("cardCell").item(i))
+        }*/
+
+
+    })
+    
 
     return(
-        <div className="cardCell" onDoubleClick={handleStuff}> 
-        <input className = "tempCheckbox" type = "checkbox" id={stateTodo.id} onFocus={console.log("Mam focus")}/>
-            
+        <div className="cardCell" id={index}>             
                 
-                <Card border="white" bg="white" text="black" ref={ref} onClick={handleStuff1}>
+                <Card border="white" bg="white" text="black" ref={ref}>
                     <div className="toolbar">
                         <ButtonGroup aria-label="Controls">
                             <Button  className="text-right"  variant="light" onClick={handleDelete}>X</Button>
-                            <Button  className="text-right"  variant="light" onClick={handleEdit}  onFocus={console.log("Mam focus")}>O</Button>
+                            <Button  className="text-right"  variant="light" onClick={handleBeginEdit}>O</Button>
                         </ButtonGroup>
                     </div>
-                    <label for={stateTodo.id}>
-                    <Card.Body >
+                    
+                    <Card.Body  onClick={handleBeginEdit}>
                         {
                             edit.edit ? 
                                 <Form onSubmit={handleEditSubmit} >
@@ -144,12 +168,14 @@ const ToDo = ({todo,createTodo,updateTodo,deleteTodo, updateOrder, cardOrder, in
                                         <SimpleMDE onChange={handleChange} value = {stateTodo.content} options={{toolbar:  ["preview","|","bold", "italic", "strikethrough", "|", "heading", "heading-smaller","code", "quote", "|","side-by-side","fullscreen"]}}/>
                                     </Form.Group>
                                     <Button className="float-right" variant="secondary" type="submit">Save</Button>
+                                    <ReactMarkdown source={stateTodo.content}/>
                                 </Form>
+                                
                             :
                                 <ReactMarkdown source={stateTodo.content}/>
                         }
                     </Card.Body>
-                    </label>
+                   
                 </Card>
             
             <div className="addCard">
@@ -274,4 +300,51 @@ export default connect(null,mapDispatchToProps)(ToDo)
 
 
 
+        */
+
+
+
+
+
+
+
+
+
+
+
+        /*
+ return(
+        <div className="cardCell" onDoubleClick={handleStuff}> 
+        <input className = "tempCheckbox" type = "checkbox" id={stateTodo.id} onFocus={console.log("Mam focus")}/>
+            
+                
+                <Card border="white" bg="white" text="black" ref={ref} onClick={handleStuff1}>
+                    <div className="toolbar">
+                        <ButtonGroup aria-label="Controls">
+                            <Button  className="text-right"  variant="light" onClick={handleDelete}>X</Button>
+                            <Button  className="text-right"  variant="light" onClick={handleEdit}  onFocus={console.log("Mam focus")}>O</Button>
+                        </ButtonGroup>
+                    </div>
+                    <label for={stateTodo.id}>
+                    <Card.Body >
+                        {
+                            edit.edit ? 
+                                <Form onSubmit={handleEditSubmit} >
+                                    <Form.Group controlId="exampleForm.ControlTextarea1">
+                                        <SimpleMDE  value = {stateTodo.content} options={{toolbar:  ["preview","|","bold", "italic", "strikethrough", "|", "heading", "heading-smaller","code", "quote", "|","side-by-side","fullscreen"]}}/>
+                                    </Form.Group>
+                                    <Button className="float-right" variant="secondary" type="submit">Save</Button>
+                                </Form>
+                            :
+                                <ReactMarkdown source={stateTodo.content}/>
+                        }
+                    </Card.Body>
+                    </label>
+                </Card>
+            
+            <div className="addCard">
+                <Button className="addCardButton" variant="outline-dark" onClick={handleCreate}>Add</Button>
+            </div>
+        </div>
+    )}
         */

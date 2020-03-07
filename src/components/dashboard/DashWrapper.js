@@ -11,10 +11,12 @@ import Dashboard from "./Dashboard";
 class DashWrapper extends Component{
 
     render(){
-        const {todos} = this.props
+        const {cardData} = this.props
         var {cardOrder} = this.props
+        console.log(this.props)
+       
 
-        if(!todos || !cardOrder){
+        if(!cardData || !cardOrder){
             return(
                 <Container>
                     <div className="text-center">
@@ -26,7 +28,7 @@ class DashWrapper extends Component{
             )
         }else{
             return(
-                <Dashboard cards = {todos} cardOrder = {cardOrder}></Dashboard>
+                <Dashboard cards = {cardData} cardOrder = {cardOrder} ></Dashboard>
             )
         }
                 
@@ -38,7 +40,7 @@ class DashWrapper extends Component{
 
 const mapStateToProps = (state) => {
     return {
-        todos:state.firestore.data.todos,
+        cardData:state.firestore.data.cardData,
         cardOrder:state.firestore.ordered.cardOrder
     }
 }
@@ -46,7 +48,7 @@ const mapStateToProps = (state) => {
 
 
 
-export default compose(firestoreConnect([{collection:'todos'},{collection:'cardOrder'}]),connect(mapStateToProps))(DashWrapper)
+export default compose(firestoreConnect([{collection:'cardData'},{collection:'cardOrder'}]),connect(mapStateToProps))(DashWrapper)
 
 
 

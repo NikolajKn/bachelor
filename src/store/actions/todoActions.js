@@ -26,10 +26,10 @@ export const createTodo = (cardOrder,taskName, insertIndex = null) => {
     
     return  (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore();
-        var cardsColRef = firestore.collection("todos")
+        var cardsColRef = firestore.collection("cardData")
         var orderDocRef = firestore.collection("cardOrder").doc(taskName)
 
-        var newCardRef = firestore.collection('todos').doc()
+        var newCardRef = firestore.collection('cardData').doc()
 
        
         var batch = firestore.batch()
@@ -82,7 +82,7 @@ export const createTodo = (cardOrder,taskName, insertIndex = null) => {
 export const updateTodo = (todo) => {
     return  (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore();
-        const col = firestore.collection("todos").doc(todo.id)
+        const col = firestore.collection("cardData").doc(todo.id)
         
         
         col.update({
@@ -106,7 +106,7 @@ export const updateTodo = (todo) => {
 export const deleteTodo = (todo) => {
     return  (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore();
-        const col = firestore.collection("todos").doc(todo.id)
+        const col = firestore.collection("cardData").doc(todo.id)
         col.delete()
         .then(() => {
             dispatch({

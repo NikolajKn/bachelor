@@ -7,7 +7,7 @@ import {compose} from "redux";
 import {Container, Row, Col, Spinner} from "react-bootstrap";
 import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
-import { updateOrder } from "../../store/actions/todoActions";
+import { updateOrder,createTodo } from "../../store/actions/todoActions";
 
 
 
@@ -21,9 +21,9 @@ class Dashboard extends Component{
         }
     }
     
-    
     names = []
     componentDidMount(){
+        console.log(this.props)
         this.names = []
         this.setState({task:this.props.cardOrder[0].id,order:this.props.cardOrder[0].order})
         this.props.cardOrder.map(item => (
@@ -32,6 +32,7 @@ class Dashboard extends Component{
     }
 
     componentDidUpdate(prevProps){
+        
         if(prevProps.cardOrder !== this.props.cardOrder){
             this.props.cardOrder.map(item => (
                 this.state.task === item.id ? 
@@ -47,7 +48,6 @@ class Dashboard extends Component{
         this.props.updateOrder(this.state.order, this.state.task)
     } 
 
-
     changeTask = (name) => {
         this.props.cardOrder.map(item => (
             name === item.id ? 
@@ -56,7 +56,6 @@ class Dashboard extends Component{
                 console.log("")
         ))
     }
-   
 
     render(){      
         if(this.state.id === ""){
@@ -75,8 +74,9 @@ class Dashboard extends Component{
             console.log("STATE",this.state)
             var cards = this.props.cards
             var taskCards = Object.values(this.state.order).map(item => ({...cards[item], id: item}) )
+                        
             return(
-                <Row>
+                <Row >
                     <Col sm = {2} >
                         <div className="secondnav">
                             <SecondNavbar names ={this.names} changeTask = {this.changeTask} />
@@ -100,7 +100,8 @@ class Dashboard extends Component{
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateOrder: (cardOrder, taskName) => dispatch(updateOrder(cardOrder,taskName)) 
+        updateOrder: (cardOrder, taskName) => dispatch(updateOrder(cardOrder,taskName)),
+        createTodo: (cardOrder,taskName,insertIndex) => dispatch(createTodo(cardOrder,taskName,insertIndex))
     }
 }
 

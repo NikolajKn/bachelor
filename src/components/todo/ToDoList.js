@@ -29,14 +29,12 @@ const ToDoList = ({cards,cardOrder, changeOrder, updateOrder, taskName, createTo
       )
   
 
-    const createCellIfEmpty = () => {
-        createTodo(cardOrder,taskName,0)
-    }
+   
 
-    const renderCell = (item, index) => {
+    const renderCard = (item, index) => {
         return(
             <ListGroup.Item className = "card" key={item.id}>
-                <ToDo 
+                <ToDo id={index}
                     todo = {item}
                     index = {index}
                     cardOrder = {cardOrder}
@@ -48,16 +46,15 @@ const ToDoList = ({cards,cardOrder, changeOrder, updateOrder, taskName, createTo
         )
     }
 
-
-    if((cards.length === 0) && (taskName !== "")){
-        createCellIfEmpty()
+    if((cardOrder[0] === "" || cardOrder.length === 0) && (taskName !== "")){
+        createTodo(cardOrder,taskName,0)
     }
 
     return(
         <ListGroup variant="flush">
             {cards && cards.map( (item,i) => {
                 return( 
-                    renderCell(item,i)
+                    renderCard(item,i)
                 )
             })}
         </ListGroup>
