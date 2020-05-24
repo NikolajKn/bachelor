@@ -15,6 +15,33 @@ V rámci tejto práce by mala vzniknúť webová aplikácia fungujúca ako inter
 **Cieľ:** 
 Implementovať webovú aplikáciu na strane klienta s prípadnou potrebnou serverovou podporou v zmysle anotácie.
 
+### Denník
+
+**1.týždeň** Spracovanie poznámok k východiskovej kapitole
+
+**2.týždeň** Príprava používateľského prostredia
+
+**3.týždeň** Vytvorenie komponentu so zadaniami úloh
+
+**4.týždeň** Pridaná funkcionalita zadaniam úloh
+
+**5.týždeň** Autentifikácia v aplikácii cez GitHub
+
+**6.týždeň** Práca s dátami cez GitHub
+
+**7.týždeň** Vytvorenie prehliadača repozitárov
+
+**8.týždeň** Pohyb v repozitároch aj pomocou URL
+
+**9.týždeň** Začiatok písania práce a implementácia Tableau Editora
+
+**10.týždeň** Písanie práce a implementácia Resolution Editora
+ 
+**11.týždeň** Oprava chýb aplikácie
+
+**12.týždeň** Dokončenie písania práce a implementovania
+
+
 
 ### Plán práce
 
