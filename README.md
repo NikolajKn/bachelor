@@ -1,6 +1,6 @@
 ## Bakalárska práca
 
-**Aplikácia**: [Spusti](https://mathematics-4.firebaseapp.com/) 
+**Aplikácia**: [Spusti](https://mathematics-4.firebaseapp.com/)  
 **Bakalárska práca:** [Otvor](BakalarskaPraca v1.pdf)  
 **Východisková kapitola:** [Otvor](Vychodiska.pdf)  
 **Prototyp:** [Zdrojové súbory a obrázky](Prototyp.zip)  
