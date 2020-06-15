@@ -1,6 +1,6 @@
 ## Bakalárska práca
 
-**Prezentácia**: [Otvor](Obhajoba.pptx)
+**Prezentácia**: [Otvor](Obhajoba.pptx)  
 **Aplikácia**: [Spusti](https://mathematics-4.firebaseapp.com/)  
 **Bakalárska práca:** [Otvor](BakalarskaPraca_v1.pdf)  
 **Východisková kapitola:** [Otvor](Vychodiska.pdf)  
