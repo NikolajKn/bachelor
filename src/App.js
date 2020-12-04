@@ -3,10 +3,7 @@ import {connect} from "react-redux";
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Navbar from './components/layout/Navigation';
 import RepoBoard from './components/repo/RepoBoard';
-import NoticeBoard from './components/notice/NoticeBoard';
 import {localStorageSignin} from "./store/actions/authActions"
-//import Editor from "@fmfi-uk-1-ain-412/tableau-editor-embeddable"
-
 
 
 class App extends Component {
@@ -14,7 +11,6 @@ class App extends Component {
     super(props);
     var user = localStorage.getItem("user")
     if(user === null || user === "null"){
-      console.log("niesi prihlaseny")
     }else{
       this.props.localStorageSignin()
     }
@@ -24,15 +20,10 @@ class App extends Component {
   render() {
     return(
       <BrowserRouter>
-        <div className="App" >
+        <div >
           <Navbar/>
           <Switch>
-            <Route path = "/:repo?/:branch?/:path*" component={RepoBoard}/>
-            
-            {
-              //<Route path = "/:repo?/:branch?/:path*" component={RepoBoard}/>
-            //<Route path = "/notice" component={NoticeBoard}/>
-            }          
+            <Route path = "/:repo?/:branch?/:path*" component={RepoBoard}/>        
           </Switch>
         </div>
       </BrowserRouter>     
